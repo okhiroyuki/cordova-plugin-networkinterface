@@ -105,7 +105,7 @@ public class networkinterface extends CordovaPlugin {
 		Map<String,String> ipInformation = new HashMap<String,String>();
 		ipInformation.put("ip", ip);
 		ipInformation.put("subnet", subnet);
-		ipInfromation.put("WifiApIp", getWifiApIpAddress());
+		ipInformation.put("WifiApIp", getWifiApIpAddress());
 
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, new JSONObject(ipInformation)));
 		return true;
