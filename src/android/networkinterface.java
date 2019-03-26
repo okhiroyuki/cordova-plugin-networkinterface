@@ -97,10 +97,10 @@ public class networkinterface extends CordovaPlugin {
 		String ip = ipInfo[0];
 		String subnet = ipInfo[1];
 		String fail = "0.0.0.0";
-		if (ip == null || ip.equals(fail)) {
-			callbackContext.error("No valid IP address identified");
-			return false;
-		}
+		// if (ip == null || ip.equals(fail)) {
+		// 	callbackContext.error("No valid IP address identified");
+		// 	return false;
+		// }
 
 		Map<String,String> ipInformation = new HashMap<String,String>();
 		ipInformation.put("ip", ip);
