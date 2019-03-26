@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-networkinterface"
-    version="2.0.0">
+    version="2.0.1">
 
     <name>NetworkInterface</name>
     <description>
@@ -33,7 +33,7 @@
         <header-file src="src/ios/CDVNetworkInterface.h" />
         <source-file src="src/ios/CDVNetworkInterface.m" />
     </platform>
-    
+
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">

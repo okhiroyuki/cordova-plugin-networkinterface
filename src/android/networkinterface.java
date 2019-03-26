@@ -40,7 +40,7 @@ public class networkinterface extends CordovaPlugin {
 	public static final String GET_HTTP_PROXY_INFORMATION="getHttpProxyInformation";
 	private static final String TAG = "cordova-plugin-networkinterface";
 
-	
+
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -71,7 +71,7 @@ public class networkinterface extends CordovaPlugin {
 	private boolean getHttpProxyInformation(String url, CallbackContext callbackContext) throws JSONException, URISyntaxException {
 		JSONArray proxiesInformation = new JSONArray();
 		ProxySelector defaultProxySelector = ProxySelector.getDefault();
-		
+
 		if(defaultProxySelector != null){
 			List<java.net.Proxy> proxyList = defaultProxySelector.select(new URI(url));
 			for(java.net.Proxy proxy: proxyList){
@@ -105,6 +105,7 @@ public class networkinterface extends CordovaPlugin {
 		Map<String,String> ipInformation = new HashMap<String,String>();
 		ipInformation.put("ip", ip);
 		ipInformation.put("subnet", subnet);
+		ipInfromation.put("WifiApIp", getWifiApIpAddress());
 
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, new JSONObject(ipInformation)));
 		return true;
@@ -131,6 +132,28 @@ public class networkinterface extends CordovaPlugin {
 		}
 
 		return new String[]{ ipString, subnet };
+	}
+
+	private String getWifiApIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = en.nextElement();
+				if (intf.getName().contains("wlan")) {
+					for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr
+							.hasMoreElements();) {
+						InetAddress inetAddress = enumIpAddr.nextElement();
+						if (!inetAddress.isLoopbackAddress()
+								&& (inetAddress.getAddress().length == 4)) {
+							Log.d(TAG, inetAddress.getHostAddress());
+							return inetAddress.getHostAddress();
+						}
+					}
+				}
+			}
+		} catch (SocketException ex) {
+			Log.e(TAG, ex.toString());
+		}
+		return "";
 	}
 
 	private String[] getCarrierIPAddress() {
