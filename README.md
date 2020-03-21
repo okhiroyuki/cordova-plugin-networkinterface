@@ -5,7 +5,14 @@ Network interface information plugin for Cordova/PhoneGap that supports Android,
 ## Command Line Install
 
 ```sh
-cordova plugin add cordova-plugin-networkinterface
+cordova plugin add @red-mobile/cordova-plugin-networkinterface
+```
+
+### uninstall
+
+```sh
+cordova plugin remove cordova-plugin-networkinterface
+npm uninstall add @red-mobile/cordova-plugin-networkinterface
 ```
 
 ## PhoneGap Build
@@ -110,6 +117,7 @@ networkinterface.getHttpProxyInformation( url, onSuccess, onError );
 ```
 
 The type can be any of the following:
+
 * DIRECT - Not passing through a proxy. `host`/`port` values will be "none"
 * SOCKS
 * HTTP
