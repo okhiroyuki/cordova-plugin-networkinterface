@@ -1,6 +1,6 @@
 {
   "name": "@red-mobile/cordova-plugin-networkinterface",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "This plugin allows your application to retrieve the local wifi address and http proxy information.",
   "cordova": {
     "id": "@red-mobile/cordova-plugin-networkinterface",
