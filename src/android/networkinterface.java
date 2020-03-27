@@ -44,20 +44,51 @@ public class networkinterface extends CordovaPlugin {
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-		try {
-			if (GET__WIFI_IP_ADDRESS.equals(action)) {
-				return extractIpInfo(getWiFiIPAddress(), callbackContext);
-			} else if (GET_CARRIER_IP_ADDRESS.equals(action)) {
-				return extractIpInfo(getCarrierIPAddress(), callbackContext);
-			} else if(GET_HTTP_PROXY_INFORMATION.equals(action)) {
-				return getHttpProxyInformation(args.getString(0), callbackContext);
-			}
-			callbackContext.error("Error no such method '" + action + "'");
-			return false;
-		} catch(Exception e) {
-			callbackContext.error("Error while calling ''" + action + "' '" + e.getMessage());
-			return false;
+		if (GET__WIFI_IP_ADDRESS.equals(action)) {
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try{
+						extractIpInfo(getWiFiIPAddress(), callbackContext);
+					}catch(Exception e){
+						callbackError(action, callbackContext, e);
+					}						
+				}
+			});
+			return true;
+		} else if (GET_CARRIER_IP_ADDRESS.equals(action)) {
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try{
+						extractIpInfo(getCarrierIPAddress(), callbackContext);
+					}catch(Exception e){
+						callbackError(action, callbackContext, e);
+					}
+				}
+			});
+			return true;
+		} else if(GET_HTTP_PROXY_INFORMATION.equals(action)) {
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try{
+						getHttpProxyInformation(args.getString(0), callbackContext);
+					}catch(Exception e){
+						callbackError(action, callbackContext, e);
+					}
+				}
+			});
+			return true;
+		}else{
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					callbackContext.error("Error no such method '" + action + "'");
+				}
+			});
+			return false;	
 		}
+	}
+
+	private void callbackError(String action, CallbackContext callbackContext, Exception e){
+		callbackContext.error("Error while calling ''" + action + "' '" + e.getMessage());
 	}
 
 	private JSONObject createProxyInformation (Proxy.Type proxyType, String host, String port) throws JSONException {
@@ -68,7 +99,7 @@ public class networkinterface extends CordovaPlugin {
 		return proxyInformation;
 	}
 
-	private boolean getHttpProxyInformation(String url, CallbackContext callbackContext) throws JSONException, URISyntaxException {
+	private void getHttpProxyInformation(String url, CallbackContext callbackContext) throws JSONException, URISyntaxException {
 		JSONArray proxiesInformation = new JSONArray();
 		ProxySelector defaultProxySelector = ProxySelector.getDefault();
 
@@ -90,10 +121,9 @@ public class networkinterface extends CordovaPlugin {
 		}
 
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, proxiesInformation));
-		return true;
 	}
 
-	private boolean extractIpInfo(String[] ipInfo, CallbackContext callbackContext) throws JSONException {
+	private void extractIpInfo(String[] ipInfo, CallbackContext callbackContext) throws JSONException {
 		String ip = ipInfo[0];
 		String subnet = ipInfo[1];
 		String fail = "0.0.0.0";
@@ -108,7 +138,6 @@ public class networkinterface extends CordovaPlugin {
 		ipInformation.put("WifiApIp", getWifiApIpAddress());
 
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, new JSONObject(ipInformation)));
-		return true;
 	}
 
 	private String[] getWiFiIPAddress() {
@@ -122,7 +151,7 @@ public class networkinterface extends CordovaPlugin {
 			(ip >> 8 & 0xff),
 			(ip >> 16 & 0xff),
 			(ip >> 24 & 0xff)
-			);
+		);
 
 		String subnet = "";
 		try {
