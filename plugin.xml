@@ -15,7 +15,7 @@
     <keywords>local,ip,wifi,network,proxy</keywords>
 
 	<engines>
-		<engine name="cordova" version="&gt;=3.1.0" />
+		<engine name="cordova" version=">=3.1.0" />
 	</engines>
 
     <js-module src="www/networkinterface.js" name="networkinterface">
