@@ -2,8 +2,8 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova-plugin-networkinterface"
-    version="2.0.2">
+    id="@red-mobile/cordova-plugin-networkinterface"
+    version="2.0.3">
 
     <name>NetworkInterface</name>
     <description>
@@ -15,7 +15,7 @@
     <keywords>local,ip,wifi,network,proxy</keywords>
 
 	<engines>
-		<engine name="cordova" version=">=3.1.0" />
+		<engine name="cordova" version=">=10.0.0" />
 	</engines>
 
     <js-module src="www/networkinterface.js" name="networkinterface">

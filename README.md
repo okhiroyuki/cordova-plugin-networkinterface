@@ -11,8 +11,7 @@ cordova plugin add @red-mobile/cordova-plugin-networkinterface
 ### uninstall
 
 ```sh
-cordova plugin remove cordova-plugin-networkinterface
-npm uninstall add @red-mobile/cordova-plugin-networkinterface
+cordova plugin remove @red-mobile/cordova-plugin-networkinterface
 ```
 
 ## PhoneGap Build

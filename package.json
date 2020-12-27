@@ -1,6 +1,6 @@
 {
   "name": "@red-mobile/cordova-plugin-networkinterface",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "This plugin allows your application to retrieve the local wifi address and http proxy information.",
   "cordova": {
     "id": "@red-mobile/cordova-plugin-networkinterface",
@@ -32,7 +32,7 @@
     "jshint": "node node_modules/jshint/bin/jshint www"
   },
   "engines": {
-    "cordova": ">=7.1.0"
+    "cordova": ">=10.0.0"
   },
   "author": "Hiroyuki Okada",
   "license": "MIT",
@@ -41,6 +41,6 @@
   },
   "homepage": "https://github.com/okhiroyuki/cordova-plugin-networkinterface#readme",
   "devDependencies": {
-    "jshint": "^2.11.0"
+    "jshint": "^2.12.0"
   }
 }
